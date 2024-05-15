@@ -8,6 +8,7 @@ import {
  } from "firebase/firestore";
 
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext({});
 
@@ -46,6 +47,7 @@ function AuthProvider({children}){
                 setUser(data);
                 storageUser(data);
                 setLoadingAuth(false);
+                toast.success("Seja bem vindo")
                 navigate('/dashboard');
             })
         })
