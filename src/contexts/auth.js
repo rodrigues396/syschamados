@@ -7,11 +7,15 @@ import {
     setDoc // criar os documentos
  } from "firebase/firestore";
 
+import { useNavigate } from "react-router-dom";
+
 export const AuthContext = createContext({});
 
 function AuthProvider({children}){
     const [user, setUser] = useState(null);
     const [loadingAuth, setLoadingAuth] = useState(false);
+
+    const navigate = useNavigate();
 
     function signIn(email, password){
         console.log(email);
@@ -40,13 +44,19 @@ function AuthProvider({children}){
                 };
                 console.log('Cadastrado com sucesso')
                 setUser(data);
+                storageUser(data);
                 setLoadingAuth(false);
+                navigate('/dashboard');
             })
         })
         .catch((error)=>{
             console.log(error);
             setLoadingAuth(false)
         })
+    }
+
+    function storageUser(data){
+        localStorage.setItem('ticketsPRO', JSON.stringify(data));
     }
 
     return(
