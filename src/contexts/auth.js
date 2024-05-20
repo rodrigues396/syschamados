@@ -105,7 +105,7 @@ function AuthProvider({children}){
     }
 
     return(
-        <AuthContext.Provider 
+        <AuthContext.Provider
         value={{
             signed: !!user, // false (booleano)
             user,
