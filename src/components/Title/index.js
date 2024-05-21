@@ -2,7 +2,7 @@ import './title.css';
 
 function Title({children, name}){
     return(
-        <div className='tile'>
+        <div className='title'>
             {children}
             <span>{name}</span>
         </div>
