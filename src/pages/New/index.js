@@ -1,9 +1,21 @@
+import { useState } from 'react';
 import { FiPlusCircle } from "react-icons/fi";
 import Header from "../../components/Header";
 import Title from "../../components/Title";
 import './new.css';
 
 function New(){
+
+    const [customers, setCustomers ] = useState([]);
+
+    const [complemento, setComplemento] = useState('');
+    const [assunto, setAssunto] = useState('Suporte');
+    const [status, setStatus] = useState('Aberto')
+
+    function handleOptionChange(e){
+        setStatus(e.target.value)
+    }
+
     return(
         <div>
             <Header/>
@@ -33,6 +45,8 @@ function New(){
                             type="radio"
                             name="radio"
                             value="Aberto"
+                            onChange={handleOptionChange}
+                            checked={ status === 'Aberto'}
                             />
                             <span>Em Aberto</span>
 
@@ -40,6 +54,8 @@ function New(){
                             type="radio"
                             name="radio"
                             value="Progresso"
+                            onChange={handleOptionChange}
+                            checked={ status === 'Progresso'}
                             />
                             <span>Progresso</span>
 
@@ -47,6 +63,8 @@ function New(){
                             type="radio"
                             name="radio"
                             value="Atendido"
+                            onChange={handleOptionChange}
+                            checked={ status === 'Atendido'}
                             />
                             <span>Atendido</span>
                         </div>
@@ -55,6 +73,8 @@ function New(){
                         <textarea
                         type="text"
                         placeholder="Descreva seu problema (opcional)."
+                        value={complemento}
+                        onChange={(e) => setComplemento(e.target.value)}
                         />
 
                         <button type="submit">Registrar</button>
