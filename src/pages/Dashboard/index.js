@@ -22,24 +22,29 @@ function Dashboard(){
 
     const [chamados, setChamados] = useState([]);
     const [loading, setLoading] = useState(true);
+
     const [isEmpty, setIsEmpty] = useState(false);
+
+    const [lastDocs, setLastDocs] = useState();
+    const [loadingMore, setloadinMore] = useState(false);
 
     useEffect(()=>{
         async function loadChamados(){
-            const q = query(listRef, orderBy('created', 'desc', limit(5)));
+            const q = query(listRef, orderBy('created', 'desc'), limit(5));
 
-            const querySnapshot = await getDocs(q)
+            const querySnapshot = await getDocs(q);
             setChamados([]); // Evitar a duplicidade
+
             await updateState(querySnapshot)
             
-            setLoading(false)
+            setLoading(false);
         }
 
         loadChamados();
 
 
         return () => { }
-    }, []);
+    }, [])
 
     async function  updateState(querySnapshot){
         const isCollectionEmpty = querySnapshot.size === 0;
@@ -60,11 +65,24 @@ function Dashboard(){
                 })
             })
 
-            setChamados(chamados => [...chamados, ...lista])
+            const lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1] // Pegando o ultimo item
+
+            setChamados(chamados => [...chamados, ...lista]); 
+            setLastDocs(lastDoc);
 
         }else{
-            setIsEmpty(true)    
+            setIsEmpty(true);    
         }
+
+        setloadinMore(false);
+    }
+
+    async function handleMore(){
+        setloadinMore(true);
+
+        const q = query(listRef, orderBy('created', 'desc'), startAfter(lastDocs), limit(5));
+        const querySnapshot = await getDocs(q);    
+        await updateState(querySnapshot);
     }
 
     if(loading){
@@ -143,6 +161,9 @@ function Dashboard(){
                                     })}
                                 </tbody>
                             </table>
+
+                            {loadingMore && <h3>Buscando mais Chamados..</h3>}
+                            {!loadingMore && !isEmpty && <button className="btn-more" onClick={handleMore}>Buscar mais</button>}
                         </>
                     )}
                 </>
