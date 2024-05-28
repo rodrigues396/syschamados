@@ -5,9 +5,9 @@ import Title from "../../components/Title";
 import './new.css';
 import { AuthContext } from '../../contexts/auth';
 import { db } from '../../services/firebaseconection';
-import { collection, getDocs, getDoc, doc, addDoc } from 'firebase/firestore';
+import { collection, getDocs, getDoc, doc, addDoc, updateDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
-import { Await, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const listRef = collection(db, 'customers');
 
@@ -15,6 +15,7 @@ function New(){
 
     const {user} = useContext(AuthContext);
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const [customers, setCustomers ] = useState([]);
     const [loadCustomers, setLoadCustomers ] = useState(true);
@@ -23,6 +24,7 @@ function New(){
     const [complemento, setComplemento] = useState('');
     const [assunto, setAssunto] = useState('Suporte');
     const [status, setStatus] = useState('Aberto');
+    const [idCustomer, setIdCustomers] = useState(false);
 
     useEffect(()=>{
         async function loadCustomers(){
@@ -71,9 +73,11 @@ function New(){
 
             let index = lista.findIndex(item => item.id === snapshot.data().clienteId)
             setCustomerSelected(index);
+            setIdCustomers(true);
         })
         .catch((error)=>{
-            console.log('ERRO AO BUSCAR O CHAMADO',error)
+            console.log('ERRO AO BUSCAR O CHAMADO',error);
+            setIdCustomers(false);
         })
     }
 
@@ -88,6 +92,32 @@ function New(){
     }
     async function handleRegister(e){
         e.preventDefault();
+
+        // Editando Chamando
+        if(idCustomer){
+            const docRef = doc(db, "chamados", id)
+            await updateDoc(docRef,{
+                cliente: customers[customerSelected].nomeFantasia,
+                clienteId: customers[customerSelected].id,
+                assunto: assunto,
+                complemento: complemento,
+                status: status,
+                userId: user.uid,
+            })
+            .then(()=>{
+                toast.info('Chamado Atualizado com sucesso');
+                setCustomerSelected(0);
+                setComplemento('');
+                navigate('/dashboard');
+            })
+            .catch((error)=>{
+                toast.error('Ops erro ao atualizar esse chamado!');
+                console.log(error);
+            })
+
+
+            return;
+        }
         // Registrar um chamado
         await addDoc(collection(db, 'chamados'),{
             created: new Date(),
@@ -102,6 +132,7 @@ function New(){
             toast.success('Chamado registrado');
             setComplemento('');
             setCustomerSelected(0);
+            navigate('/dashboard');
         })
         .catch((error)=>{
             toast.error('Erro ao registrar o chamado');
@@ -113,7 +144,7 @@ function New(){
         <div>
             <Header/>
             <div className="content">
-                <Title name="Novo Chamado">
+                <Title name={id ? "Editando Chamado" : "Novo Chamado"}>
                     <FiPlusCircle size={25}/>
                 </Title>
 
