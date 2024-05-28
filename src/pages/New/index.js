@@ -7,12 +7,14 @@ import { AuthContext } from '../../contexts/auth';
 import { db } from '../../services/firebaseconection';
 import { collection, getDocs, getDoc, doc, addDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
+import { Await, useParams } from 'react-router-dom';
 
 const listRef = collection(db, 'customers');
 
 function New(){
 
     const {user} = useContext(AuthContext);
+    const { id } = useParams();
 
     const [customers, setCustomers ] = useState([]);
     const [loadCustomers, setLoadCustomers ] = useState(true);
@@ -43,6 +45,11 @@ function New(){
 
                 setCustomers(lista);
                 setLoadCustomers(false);
+
+                // 
+                if(id){
+                    loadId(lista);
+                }
             })
             .catch((error)=>{
                 console.log('ERRO AO BUSCAR OS CLIENTES',error)
@@ -52,7 +59,23 @@ function New(){
         }
 
         loadCustomers()
-    }, []);
+    }, [id]);
+
+    async function loadId(lista){
+        const docRef = doc(db, "chamados", id);
+        await getDoc(docRef)
+        .then((snapshot)=>{
+            setAssunto(snapshot.data().assunto);
+            setStatus(snapshot.data().status);
+            setComplemento(snapshot.data().complemento);
+
+            let index = lista.findIndex(item => item.id === snapshot.data().clienteId)
+            setCustomerSelected(index);
+        })
+        .catch((error)=>{
+            console.log('ERRO AO BUSCAR O CHAMADO',error)
+        })
+    }
 
     function handleOptionChange(e){
         setStatus(e.target.value);
