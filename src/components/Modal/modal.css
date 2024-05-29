@@ -55,3 +55,7 @@
     white-space: pre-wrap;
     line-height: 150%;
 }
+.status-bdge{
+    margin-left: 1em;
+    border-radius: 2px;
+}
