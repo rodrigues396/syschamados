@@ -29,6 +29,9 @@ function Dashboard(){
     const [lastDocs, setLastDocs] = useState();
     const [loadingMore, setloadinMore] = useState(false);
 
+    const [showPostModal, setShowPostModal] = useState(false);
+    const [detail, setDetail] = useState();
+
     useEffect(()=>{
         async function loadChamados(){
             const q = query(listRef, orderBy('created', 'desc'), limit(5));
@@ -84,6 +87,10 @@ function Dashboard(){
         const q = query(listRef, orderBy('created', 'desc'), startAfter(lastDocs), limit(5));
         const querySnapshot = await getDocs(q);    
         await updateState(querySnapshot);
+    }
+    function toggleModal(item){
+        setShowPostModal(!showPostModal);
+        setDetail(item);
     }
 
     if(loading){
@@ -152,7 +159,10 @@ function Dashboard(){
                                                 </td>
                                                 <td data-label='Cadastrado'>{item.createdFormat}</td>
                                                 <td data-label='#'>
-                                                    <button className="action" style={{backgroundColor: '#3583f6'}}>
+                                                    <button 
+                                                    className="action" 
+                                                    style={{backgroundColor: '#3583f6'}}
+                                                    onClick={()=> toggleModal(item)}>
                                                         <FiSearch color="#FFF" size={17} />
                                                     </button>
                                                     <Link 
@@ -174,7 +184,13 @@ function Dashboard(){
                     )}
                 </>
             </div>
-            <Modal/>
+            
+            {showPostModal && (
+                <Modal
+                    conteudo={detail}
+                    close={()=> setShowPostModal(!showPostModal)}
+                />
+            )}
         </div>
     )
 }
