@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/syschamados/static/css/main.db57e9fb.css",
-    "main.js": "/syschamados/static/js/main.76b22020.js",
+    "main.js": "/syschamados/static/js/main.1dfd6502.js",
     "static/media/cover.png": "/syschamados/static/media/cover.6a293bc81a9b941e96e1.png",
     "static/media/logo.png": "/syschamados/static/media/logo.1c649f137f0d785bca37.png",
     "index.html": "/syschamados/index.html",
     "main.db57e9fb.css.map": "/syschamados/static/css/main.db57e9fb.css.map",
-    "main.76b22020.js.map": "/syschamados/static/js/main.76b22020.js.map"
+    "main.1dfd6502.js.map": "/syschamados/static/js/main.1dfd6502.js.map"
   },
   "entrypoints": [
     "static/css/main.db57e9fb.css",
-    "static/js/main.76b22020.js"
+    "static/js/main.1dfd6502.js"
   ]
 }
