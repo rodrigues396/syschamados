@@ -49,7 +49,7 @@ function SignUp(){
                         {loadingAuth ? 'Carregando...' : 'Cadastrar'}
                     </button>
                 </form>
-                <Link to="/">Ja possui uma conta? faça Login</Link>
+                <Link to="/syschamados">Ja possui uma conta? faça Login</Link>
             </div>
         </div>
     )
