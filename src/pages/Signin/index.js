@@ -43,7 +43,7 @@ function SignIn(){
                         {loadingAuth ? 'logando...': 'Acessar'}
                     </button>
                 </form>
-                <Link to="/register">Criar uma conta</Link>
+                <Link to="/syschamados/register">Criar uma conta</Link>
             </div>
         </div>
     )

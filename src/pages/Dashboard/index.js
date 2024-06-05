@@ -122,14 +122,14 @@ function Dashboard(){
                     {chamados.length === 0 ? (
                         <div className="container dashboard">
                             <span>Nenhum chamado encontrado...</span>
-                            <Link to='/new' className="new">
+                            <Link to='/syschamados/new' className="new">
                                 <FiPlus color="#FFF" size={25}/>
                                 Novo Chamado
                             </Link>
                         </div>
                     ) : (
                         <>
-                            <Link to='/new' className="new">
+                            <Link to='/syschamados/new' className="new">
                                 <FiPlus color="#FFF" size={25}/>
                                 Novo Chamado
                             </Link>
@@ -166,7 +166,7 @@ function Dashboard(){
                                                         <FiSearch color="#FFF" size={17} />
                                                     </button>
                                                     <Link 
-                                                    to={`/new/${item.id}`} 
+                                                    to={`/syschamados/new/${item.id}`} 
                                                     className="action" 
                                                     style={{backgroundColor: '#f5a935'}}>
                                                         <FiEdit2 color="#FFF" size={17} />

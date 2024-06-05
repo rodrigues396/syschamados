@@ -132,7 +132,7 @@ function New(){
             toast.success('Chamado registrado');
             setComplemento('');
             setCustomerSelected(0);
-            navigate('/dashboard');
+            navigate('/syschamados/dashboard');
         })
         .catch((error)=>{
             toast.error('Erro ao registrar o chamado');

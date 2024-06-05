@@ -13,13 +13,13 @@ function RoutesApp(){
     return(
         <Routes>
             <Route path="/syschamados" element={<SignIn/>} />
-            <Route path="/register" element={<SignUp/>} />
+            <Route path="/syschamados/register" element={<SignUp/>} />
             
-            <Route path="/dashboard" element={<Private><Dashboard/></Private>} />
-            <Route path="/new" element={<Private><New/></Private>} />
-            <Route path="/new/:id" element={<Private><New/></Private>} />
-            <Route path="/customers" element={<Private><Customers/></Private>} />
-            <Route path="/profile" element={<Private><Profile/></Private>} />
+            <Route path="/syschamados/dashboard" element={<Private><Dashboard/></Private>} />
+            <Route path="/syschamados/new" element={<Private><New/></Private>} />
+            <Route path="/syschamados/new/:id" element={<Private><New/></Private>} />
+            <Route path="/syschamados/customers" element={<Private><Customers/></Private>} />
+            <Route path="/syschamados/profile" element={<Private><Profile/></Private>} />
         </Routes>
     )
 }

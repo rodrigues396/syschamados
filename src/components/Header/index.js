@@ -14,17 +14,17 @@ function Header(){
             <div>
                 <img src={user.avatarUrl === null ? avatarImg : user.avatarUrl} alt="Foto do Usuario" />
             </div>
-            <Link to='/dashboard'>
+            <Link to='/syschamados/dashboard'>
                 <FiHome color="#FFF" size={24}/>
                 Chamados
             </Link>
 
-            <Link to='/customers'>
+            <Link to='/syschamados/customers'>
                 <FiUser color="#FFF" size={24}/>
                 Clientes
             </Link>
 
-            <Link to='/profile'>
+            <Link to='/syschamados/profile'>
                 <FiSettings color="#FFF" size={24}/>
                 Perfil
             </Link>

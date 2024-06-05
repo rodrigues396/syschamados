@@ -52,7 +52,7 @@ function AuthProvider({children}){
             storageUser(data);
             setLoadingAuth(false);
             toast.success("Bem vindo de volta");
-            navigate("/dashboard");
+            navigate("/syschamados/dashboard");
         })
         .catch((error)=>{
             console.log(error);
@@ -85,7 +85,7 @@ function AuthProvider({children}){
                 storageUser(data);
                 setLoadingAuth(false);
                 toast.success("Seja bem vindo")
-                navigate('/dashboard');
+                navigate('/syschamados/dashboard');
             })
         })
         .catch((error)=>{
