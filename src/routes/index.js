@@ -12,7 +12,7 @@ import Private from "./Private";
 function RoutesApp(){
     return(
         <Routes>
-            <Route path="/" element={<SignIn/>} />
+            <Route path="/syschamados" element={<SignIn/>} />
             <Route path="/register" element={<SignUp/>} />
             
             <Route path="/dashboard" element={<Private><Dashboard/></Private>} />
